@@ -13,4 +13,3 @@
   `admin@pickleball.local` / `Admin123!` (seeded, local only).
 - Facility settings (hours, match duration, booking hold) are edited at
   `/admin/settings` through `app/api/settings`.
-- Planning/security checklist: `.claude/parities-and-action-items.md`.
