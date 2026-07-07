@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(supabase --version)",
+      "Bash(curl *)",
+      "Bash(npx shadcn@latest add button card input label dialog select table badge skeleton separator sonner form)",
+      "Bash(yarn add *)",
+      "Bash(yarn supabase *)",
+      "Bash(npx shadcn@latest add tabs alert-dialog alert textarea)",
+      "Bash(npx shadcn@latest add sidebar avatar dropdown-menu tooltip sheet)",
+      "WebFetch(domain:www.picklepointiloilo.com)",
+      "Bash(npx shadcn@latest add accordion)",
+      "Bash(sed -i 's|<h1 className=\"font-heading text-4xl font-bold tracking-tight\">Book a court</h1>|<h1 className=\"font-heading text-4xl font-black uppercase tracking-tight\">Book a court</h1>|' app/book/page.tsx)",
+      "Bash(sed -i 's|<p className=\"font-mono text-3xl font-semibold tracking-widest\">|<p className=\"font-mono text-3xl font-bold tracking-widest text-primary\">|' \"app/bookings/[reference]/page.tsx\")",
+      "Bash(yarn lint *)",
+      "Bash(yarn test *)",
+      "Bash(yarn build *)",
+      "Bash(nohup yarn dev)",
+      "Bash(pkill -f \"next dev\")",
+      "Bash(git remote *)",
+      "Bash(git add *)"
+    ]
+  }
+}

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-label="Live queue display board">
+  <rect width="800" height="500" fill="#0b1626"/>
+  <g fill="#1a2740">
+    <circle cx="716" cy="72" r="5"/><circle cx="756" cy="72" r="5"/>
+    <circle cx="716" cy="112" r="5"/><circle cx="756" cy="112" r="5"/>
+    <circle cx="44" cy="396" r="5"/><circle cx="84" cy="396" r="5"/>
+    <circle cx="44" cy="436" r="5"/><circle cx="84" cy="436" r="5"/>
+  </g>
+  <!-- board -->
+  <rect x="130" y="70" width="540" height="360" rx="18" fill="#040e1f"/>
+  <rect x="130" y="70" width="540" height="360" rx="18" fill="none" stroke="#caf300" stroke-opacity="0.5" stroke-width="4"/>
+  <!-- header row -->
+  <rect x="162" y="102" width="200" height="26" rx="13" fill="#caf300"/>
+  <circle cx="632" cy="115" r="10" fill="#ff7a3d"/>
+  <!-- queue rows -->
+  <g>
+    <rect x="162" y="160" width="476" height="48" rx="10" fill="#1f2a3c"/>
+    <circle cx="192" cy="184" r="14" fill="#caf300"/>
+    <rect x="222" y="176" width="180" height="16" rx="8" fill="#d8e3fb"/>
+    <rect x="560" y="176" width="56" height="16" rx="8" fill="#38bdf8"/>
+
+    <rect x="162" y="222" width="476" height="48" rx="10" fill="#152031"/>
+    <circle cx="192" cy="246" r="14" fill="#caf300"/>
+    <rect x="222" y="238" width="220" height="16" rx="8" fill="#93a1c0"/>
+    <rect x="560" y="238" width="56" height="16" rx="8" fill="#38bdf8"/>
+
+    <rect x="162" y="284" width="476" height="48" rx="10" fill="#152031"/>
+    <circle cx="192" cy="308" r="14" fill="#caf300"/>
+    <rect x="222" y="300" width="150" height="16" rx="8" fill="#93a1c0"/>
+    <rect x="560" y="300" width="56" height="16" rx="8" fill="#38bdf8"/>
+
+    <rect x="162" y="346" width="476" height="48" rx="10" fill="#152031"/>
+    <circle cx="192" cy="370" r="14" fill="#caf300"/>
+    <rect x="222" y="362" width="196" height="16" rx="8" fill="#93a1c0"/>
+    <rect x="560" y="362" width="56" height="16" rx="8" fill="#38bdf8"/>
+  </g>
+</svg>

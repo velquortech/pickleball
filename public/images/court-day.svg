@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-label="Top-down view of a pickleball court">
+  <rect width="800" height="500" fill="#111c2d"/>
+  <!-- court surface -->
+  <rect x="150" y="40" width="500" height="420" rx="6" fill="#0b1626"/>
+  <rect x="180" y="64" width="440" height="372" rx="4" fill="none" stroke="#caf300" stroke-width="6"/>
+  <!-- kitchen lines -->
+  <line x1="180" y1="190" x2="620" y2="190" stroke="#caf300" stroke-opacity="0.75" stroke-width="4"/>
+  <line x1="180" y1="310" x2="620" y2="310" stroke="#caf300" stroke-opacity="0.75" stroke-width="4"/>
+  <!-- center service lines -->
+  <line x1="400" y1="64" x2="400" y2="190" stroke="#caf300" stroke-opacity="0.75" stroke-width="4"/>
+  <line x1="400" y1="310" x2="400" y2="436" stroke="#caf300" stroke-opacity="0.75" stroke-width="4"/>
+  <!-- net -->
+  <rect x="160" y="243" width="480" height="14" rx="7" fill="#38bdf8"/>
+  <!-- player markers -->
+  <circle cx="300" cy="128" r="20" fill="#caf300"/>
+  <circle cx="502" cy="140" r="20" fill="#caf300"/>
+  <circle cx="296" cy="382" r="20" fill="#ff7a3d"/>
+  <circle cx="506" cy="368" r="20" fill="#ff7a3d"/>
+  <!-- ball + motion -->
+  <circle cx="430" cy="228" r="13" fill="#d8e3fb"/>
+  <path d="M 310 150 Q 380 180 424 220" fill="none" stroke="#bec6e0" stroke-opacity="0.7" stroke-width="5" stroke-linecap="round" stroke-dasharray="2 14"/>
+  <!-- side dots -->
+  <g fill="#1a2740">
+    <circle cx="80" cy="110" r="6"/><circle cx="80" cy="160" r="6"/><circle cx="80" cy="210" r="6"/>
+    <circle cx="720" cy="290" r="6"/><circle cx="720" cy="340" r="6"/><circle cx="720" cy="390" r="6"/>
+  </g>
+</svg>

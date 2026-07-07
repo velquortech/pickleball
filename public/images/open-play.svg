@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-label="Two crossed pickleball paddles with a ball">
+  <rect width="800" height="500" fill="#0b1626"/>
+  <g fill="#1a2740">
+    <circle cx="60" cy="60" r="5"/><circle cx="120" cy="60" r="5"/><circle cx="180" cy="60" r="5"/><circle cx="240" cy="60" r="5"/>
+    <circle cx="60" cy="120" r="5"/><circle cx="120" cy="120" r="5"/><circle cx="180" cy="120" r="5"/>
+    <circle cx="60" cy="180" r="5"/><circle cx="120" cy="180" r="5"/>
+    <circle cx="740" cy="440" r="5"/><circle cx="680" cy="440" r="5"/><circle cx="620" cy="440" r="5"/>
+    <circle cx="740" cy="380" r="5"/><circle cx="680" cy="380" r="5"/>
+    <circle cx="740" cy="320" r="5"/>
+  </g>
+  <circle cx="400" cy="250" r="190" fill="#152031"/>
+  <circle cx="400" cy="250" r="190" fill="none" stroke="#caf300" stroke-opacity="0.25" stroke-width="3"/>
+  <!-- left paddle -->
+  <g transform="rotate(-24 340 250)">
+    <rect x="290" y="105" width="104" height="188" rx="52" fill="#d8e3fb"/>
+    <rect x="290" y="105" width="104" height="188" rx="52" fill="none" stroke="#38bdf8" stroke-width="8"/>
+    <rect x="326" y="288" width="32" height="82" rx="14" fill="#38bdf8"/>
+  </g>
+  <!-- right paddle -->
+  <g transform="rotate(24 470 250)">
+    <rect x="416" y="105" width="104" height="188" rx="52" fill="#caf300"/>
+    <rect x="416" y="105" width="104" height="188" rx="52" fill="none" stroke="#0b1626" stroke-width="8"/>
+    <rect x="452" y="288" width="32" height="82" rx="14" fill="#8fae00"/>
+  </g>
+  <!-- ball -->
+  <circle cx="400" cy="392" r="34" fill="#caf300"/>
+  <g fill="#7d9600">
+    <circle cx="388" cy="382" r="4.5"/><circle cx="408" cy="378" r="4.5"/><circle cx="416" cy="398" r="4.5"/><circle cx="394" cy="404" r="4.5"/>
+  </g>
+  <path d="M 260 430 Q 400 460 540 430" fill="none" stroke="#caf300" stroke-opacity="0.5" stroke-width="6" stroke-linecap="round" stroke-dasharray="2 18"/>
+</svg>
