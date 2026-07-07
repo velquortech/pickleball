@@ -1,5 +1,5 @@
-import Link from 'next/link'
-import { CourtIllustration } from './court-illustration'
+import Link from "next/link";
+import { CourtIllustration } from "./court-illustration";
 
 export function SiteFooter() {
   return (
@@ -9,7 +9,7 @@ export function SiteFooter() {
         <div className="flex flex-col gap-3">
           <p className="flex items-baseline gap-1">
             <span className="font-heading text-xl font-black tracking-tight text-primary">
-              Dink District
+              Pickleball District
             </span>
             <span className="h-2 w-2 rounded-full bg-primary" aria-hidden />
           </p>
@@ -24,7 +24,9 @@ export function SiteFooter() {
             Hours &amp; location
           </p>
           <p className="text-foreground/85">Open daily · 8:00 AM – 10:00 PM</p>
-          <p className="text-foreground/85">Mandurriao, Iloilo City, Philippines</p>
+          <p className="text-foreground/85">
+            Mandurriao, Iloilo City, Philippines
+          </p>
           <a
             href="mailto:play@dinkdistrict.ph"
             className="w-fit text-foreground/85 underline-offset-4 hover:text-primary hover:underline"
@@ -37,22 +39,31 @@ export function SiteFooter() {
           <p className="font-mono text-xs font-bold uppercase tracking-[0.12em] text-muted-foreground">
             Quick links
           </p>
-          <Link href="/live" className="w-fit text-foreground/85 underline-offset-4 hover:text-primary hover:underline">
+          <Link
+            href="/live"
+            className="w-fit text-foreground/85 underline-offset-4 hover:text-primary hover:underline"
+          >
             Live court display
           </Link>
-          <Link href="/book" className="w-fit text-foreground/85 underline-offset-4 hover:text-primary hover:underline">
+          <Link
+            href="/book"
+            className="w-fit text-foreground/85 underline-offset-4 hover:text-primary hover:underline"
+          >
             Book a court
           </Link>
-          <Link href="/admin" className="w-fit text-foreground/85 underline-offset-4 hover:text-primary hover:underline">
+          <Link
+            href="/admin"
+            className="w-fit text-foreground/85 underline-offset-4 hover:text-primary hover:underline"
+          >
             Staff sign in
           </Link>
         </div>
       </div>
       <div className="relative border-t border-border">
         <p className="mx-auto w-full max-w-6xl px-4 py-5 font-mono text-xs text-muted-foreground/70 sm:px-6">
-          © {new Date().getFullYear()} Dink District Pickleball Club · Iloilo City
+          © {new Date().getFullYear()} Pickleball Club · Iloilo City
         </p>
       </div>
     </footer>
-  )
+  );
 }

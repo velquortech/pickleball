@@ -1,6 +1,6 @@
-import Link from 'next/link'
-import { CourtIllustration } from '@/components/site/court-illustration'
-import { LoginForm } from './components/login-form'
+import Link from "next/link";
+import { CourtIllustration } from "@/components/site/court-illustration";
+import { LoginForm } from "./components/login-form";
 
 export default function AdminLoginPage() {
   return (
@@ -13,8 +13,8 @@ export default function AdminLoginPage() {
           className="absolute inset-0 opacity-[0.04]"
           style={{
             backgroundImage:
-              'linear-gradient(currentColor 1px, transparent 1px), linear-gradient(90deg, currentColor 1px, transparent 1px)',
-            backgroundSize: '56px 56px',
+              "linear-gradient(currentColor 1px, transparent 1px), linear-gradient(90deg, currentColor 1px, transparent 1px)",
+            backgroundSize: "56px 56px",
           }}
         />
         <div
@@ -24,7 +24,7 @@ export default function AdminLoginPage() {
 
         <Link href="/" className="relative flex items-baseline gap-1">
           <span className="font-heading text-xl font-black tracking-tight text-primary">
-            Dink District
+            Pickleball District
           </span>
           <span className="h-2 w-2 rounded-full bg-primary" aria-hidden />
         </Link>
@@ -42,7 +42,7 @@ export default function AdminLoginPage() {
         </div>
 
         <p className="relative font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground/70">
-          Staff access only · Dink District Pickleball Club, Iloilo City
+          Staff access only · Pickleball Club, Iloilo City
         </p>
       </div>
 
@@ -52,7 +52,7 @@ export default function AdminLoginPage() {
           <div className="mb-8 flex flex-col gap-2">
             <Link href="/" className="mb-4 flex items-baseline gap-1 lg:hidden">
               <span className="font-heading text-lg font-black tracking-tight text-primary">
-                Dink District
+                Pickleball District
               </span>
               <span className="h-2 w-2 rounded-full bg-primary" aria-hidden />
             </Link>
@@ -67,13 +67,16 @@ export default function AdminLoginPage() {
           <LoginForm />
 
           <p className="mt-8 text-center text-xs text-muted-foreground">
-            Not staff?{' '}
-            <Link href="/" className="underline underline-offset-4 hover:text-foreground">
+            Not staff?{" "}
+            <Link
+              href="/"
+              className="underline underline-offset-4 hover:text-foreground"
+            >
               Back to the club site
             </Link>
           </p>
         </div>
       </div>
     </main>
-  )
+  );
 }

@@ -20,7 +20,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Dink District Pickleball Club — Iloilo",
+  title: "Pickleball Club — Iloilo",
   description:
     "Open play queues, private court rentals, and coaching in Iloilo City. Check live court status before you head over.",
 };

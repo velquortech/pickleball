@@ -1,8 +1,8 @@
-'use client'
+"use client";
 
-import Link from 'next/link'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { ChevronsUpDown, ExternalLink, LogOut, Settings } from 'lucide-react'
+import Link from "next/link";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { ChevronsUpDown, ExternalLink, LogOut, Settings } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -14,7 +14,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from '@/components/ui/sidebar'
+} from "@/components/ui/sidebar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -23,22 +23,22 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-import { createClient } from '@/config/supabase/client'
-import { ADMIN_TABS, parseAdminTab } from '../helpers/tabs'
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { createClient } from "@/config/supabase/client";
+import { ADMIN_TABS, parseAdminTab } from "../helpers/tabs";
 
 export function AppSidebar({ userEmail }: { userEmail: string }) {
-  const router = useRouter()
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
-  const onSettings = pathname === '/admin/settings'
-  const activeTab = parseAdminTab(searchParams.get('tab') ?? undefined)
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const onSettings = pathname === "/admin/settings";
+  const activeTab = parseAdminTab(searchParams.get("tab") ?? undefined);
 
   async function handleSignOut() {
-    await createClient().auth.signOut()
-    router.push('/admin/login')
-    router.refresh()
+    await createClient().auth.signOut();
+    router.push("/admin/login");
+    router.refresh();
   }
 
   return (
@@ -46,7 +46,7 @@ export function AppSidebar({ userEmail }: { userEmail: string }) {
       <SidebarHeader>
         <div className="flex items-baseline gap-1 px-2 py-1.5">
           <span className="font-heading text-base font-black tracking-tight text-primary">
-            Dink District
+            Pickleball District
           </span>
           <span className="h-1.5 w-1.5 rounded-full bg-primary" aria-hidden />
         </div>
@@ -121,7 +121,9 @@ export function AppSidebar({ userEmail }: { userEmail: string }) {
                     </Avatar>
                     <div className="grid flex-1 text-left text-sm leading-tight">
                       <span className="truncate font-medium">Staff</span>
-                      <span className="truncate text-xs text-muted-foreground">{userEmail}</span>
+                      <span className="truncate text-xs text-muted-foreground">
+                        {userEmail}
+                      </span>
                     </div>
                     <ChevronsUpDown className="ml-auto size-4" />
                   </SidebarMenuButton>
@@ -129,7 +131,9 @@ export function AppSidebar({ userEmail }: { userEmail: string }) {
               />
               <DropdownMenuContent side="top" align="start" className="w-56">
                 <DropdownMenuGroup>
-                  <DropdownMenuLabel className="truncate">{userEmail}</DropdownMenuLabel>
+                  <DropdownMenuLabel className="truncate">
+                    {userEmail}
+                  </DropdownMenuLabel>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
@@ -150,5 +154,5 @@ export function AppSidebar({ userEmail }: { userEmail: string }) {
         </SidebarMenu>
       </SidebarFooter>
     </Sidebar>
-  )
+  );
 }

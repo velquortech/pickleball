@@ -1,15 +1,15 @@
-import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import { CourtIllustration } from '@/components/site/court-illustration'
-import type { LiveData } from '@/helpers/live-data'
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { CourtIllustration } from "@/components/site/court-illustration";
+import type { LiveData } from "@/helpers/live-data";
 
 function LiveBoard({ courts, queue, matches, online }: LiveData) {
-  const playable = courts.filter((court) => court.status === 'open')
-  const waiting = queue.filter((entry) => entry.status === 'waiting')
+  const playable = courts.filter((court) => court.status === "open");
+  const waiting = queue.filter((entry) => entry.status === "waiting");
   const playersOnCourt = matches.reduce(
     (total, match) => total + match.match_players.length,
-    0
-  )
+    0,
+  );
 
   return (
     <div className="w-full max-w-sm rounded-2xl border border-foreground/10 bg-card/60 p-6 shadow-2xl backdrop-blur-xl">
@@ -29,12 +29,18 @@ function LiveBoard({ courts, queue, matches, online }: LiveData) {
             <div>
               <dd className="font-mono text-4xl font-bold tabular-nums text-foreground">
                 {matches.length}
-                <span className="text-lg text-muted-foreground">/{playable.length}</span>
+                <span className="text-lg text-muted-foreground">
+                  /{playable.length}
+                </span>
               </dd>
-              <dt className="mt-1 text-xs text-muted-foreground">courts in play</dt>
+              <dt className="mt-1 text-xs text-muted-foreground">
+                courts in play
+              </dt>
             </div>
             <div>
-              <dd className="font-mono text-4xl font-bold tabular-nums">{playersOnCourt}</dd>
+              <dd className="font-mono text-4xl font-bold tabular-nums">
+                {playersOnCourt}
+              </dd>
               <dt className="mt-1 text-xs text-muted-foreground">on court</dt>
             </div>
             <div>
@@ -54,7 +60,7 @@ function LiveBoard({ courts, queue, matches, online }: LiveData) {
                 {waiting.slice(0, 4).map((entry) => (
                   <li key={entry.id} className="flex items-center gap-2.5">
                     <span className="font-mono text-xs font-bold text-primary">
-                      {String(entry.position).padStart(2, '0')}
+                      {String(entry.position).padStart(2, "0")}
                     </span>
                     <span className="truncate text-foreground/85">
                       {entry.player.display_name}
@@ -79,17 +85,17 @@ function LiveBoard({ courts, queue, matches, online }: LiveData) {
         Full court display →
       </Link>
     </div>
-  )
+  );
 }
 
 const TICKER_ITEMS = [
-  'All levels welcome',
-  '6 indoor courts',
-  '20-minute rotations',
-  'Open daily 8AM – 10PM',
-  'Walk-ins welcome',
-  'VIP courts for private rent',
-]
+  "All levels welcome",
+  "6 indoor courts",
+  "20-minute rotations",
+  "Open daily 8AM – 10PM",
+  "Walk-ins welcome",
+  "VIP courts for private rent",
+];
 
 function HeroTicker() {
   return (
@@ -101,14 +107,17 @@ function HeroTicker() {
               key={index}
               className="flex items-center gap-3 whitespace-nowrap pr-10 font-mono text-xs font-bold uppercase tracking-[0.12em] text-muted-foreground"
             >
-              <span className="h-1.5 w-1.5 rounded-full bg-primary" aria-hidden />
+              <span
+                className="h-1.5 w-1.5 rounded-full bg-primary"
+                aria-hidden
+              />
               {item}
             </li>
           ))}
         </ul>
       </div>
     </div>
-  )
+  );
 }
 
 export function Hero({ live }: { live: LiveData }) {
@@ -121,8 +130,8 @@ export function Hero({ live }: { live: LiveData }) {
         className="absolute inset-0 text-foreground opacity-[0.04]"
         style={{
           backgroundImage:
-            'linear-gradient(currentColor 1px, transparent 1px), linear-gradient(90deg, currentColor 1px, transparent 1px)',
-          backgroundSize: '64px 64px',
+            "linear-gradient(currentColor 1px, transparent 1px), linear-gradient(90deg, currentColor 1px, transparent 1px)",
+          backgroundSize: "64px 64px",
         }}
       />
       {/* neon glow bleeding in from the corners */}
@@ -150,13 +159,17 @@ export function Hero({ live }: { live: LiveData }) {
           </h1>
 
           <p className="max-w-lg text-pretty text-lg leading-8 text-muted-foreground">
-            Dink District is Iloilo&apos;s indoor pickleball home. Walk in and
-            rotate through 20-minute open-play matches, or book a VIP court for
-            your own crew. All levels, all welcome.
+            Pickleball District is Iloilo&apos;s indoor pickleball home. Walk in
+            and rotate through 20-minute open-play matches, or book a VIP court
+            for your own crew. All levels, all welcome.
           </p>
 
           <div className="flex flex-col gap-3 sm:flex-row">
-            <Button size="lg" className="px-7" render={<Link href="/book">Book a Court</Link>} />
+            <Button
+              size="lg"
+              className="px-7"
+              render={<Link href="/book">Book a Court</Link>}
+            />
             <Button
               size="lg"
               variant="outline"
@@ -177,5 +190,5 @@ export function Hero({ live }: { live: LiveData }) {
 
       <HeroTicker />
     </section>
-  )
+  );
 }
