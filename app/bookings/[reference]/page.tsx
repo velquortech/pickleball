@@ -6,7 +6,7 @@ import { SiteHeader } from '@/components/site/header'
 import { SiteFooter } from '@/components/site/footer'
 import { getBookingByReference } from '@/app/api/bookings/controller'
 import { formatCurrency, formatDate, formatTime } from '@/helpers/format'
-import { PayButton } from './components/pay-button'
+import { PayButton } from '@/components/site/pay-button'
 
 export const dynamic = 'force-dynamic'
 

@@ -39,3 +39,16 @@ Generated automatically by `make setup-supabase` — do not commit `.env`.
 | `SUPABASE_DB_URL` | Direct Postgres connection string |
 | `PAYMENTS_PROVIDER` | `mock` in dev; real provider name in production |
 | `PAYMENT_WEBHOOK_SECRET` | HMAC key for payment webhook verification |
+
+## Local stack troubleshooting
+
+- **Sign-in fails with `An invalid response was received from the upstream server`
+  right after `make seed` / `db reset`.** The reset restarts containers and Kong
+  caches the old auth container IP. Nothing is wrong with the seeders or the
+  schema — restart the gateway:
+  `docker restart supabase_kong_<project>`. Symptom: `curl` to
+  `/auth/v1/token` returns the upstream error while
+  `docker exec supabase_auth_<project> wget -qO- localhost:9999/health` is fine.
+- **`db reset` exits with `error running container: exit 1`.** A stack container
+  died. `yarn supabase stop && yarn supabase start --ignore-health-check`, then
+  reset again.

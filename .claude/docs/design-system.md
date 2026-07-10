@@ -23,7 +23,8 @@
 - Cards are glassmorphic by default (`components/ui/card.tsx`: `bg-card/60` +
   `backdrop-blur-xl` + top-light stroke). Buttons are bold uppercase Montserrat;
   `default` = lime with glow, `outline` = 2px lime border (see `button.tsx`).
-- Status ring pattern on court cards: pulsing lime dot = available, solid
+- Status ring pattern on court cards: pulsing lime dot = available, solid lime =
+  filling up (a `forming` roster short a player — badge shows `3/4`), solid
   orange = occupied, blue = cleaning/maintenance.
 - The site ships dark-only: `:root` IS the navy theme and `.dark` mirrors it.
 - Smooth scrolling: `scroll-smooth` on `<html>` + `data-scroll-behavior="smooth"`

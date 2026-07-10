@@ -18,11 +18,19 @@ const LEVEL_STYLES: Record<string, string> = {
 }
 
 export default async function LivePage() {
-  const { courts, queue, matches, online } = await getLiveData()
+  const { courts, queue, matches, forming, online } = await getLiveData()
 
   const playableCourts = courts.filter((court) => court.status === 'open')
   const waitingCount = queue.filter((entry) => entry.status === 'waiting').length
-  const level = occupancyLevel(matches.length, playableCourts.length, waitingCount)
+
+  // A forming roster holds its court, so it counts as in use — otherwise the
+  // board tells arrivals a court is free when nobody can take it.
+  const courtsInUse = matches.length + forming.length
+  const playersOnCourt =
+    matches.reduce((total, match) => total + match.match_players.length, 0) +
+    forming.reduce((total, roster) => total + roster.match_players.length, 0)
+
+  const level = occupancyLevel(courtsInUse, playableCourts.length, waitingCount)
 
   return (
     <>
@@ -44,14 +52,11 @@ export default async function LivePage() {
           <p className="text-muted-foreground">{OCCUPANCY_COPY[level]}</p>
           <div className="flex flex-wrap gap-6 text-sm text-muted-foreground">
             <span>
-              <strong className="text-foreground">{matches.length}</strong> of{' '}
-              <strong className="text-foreground">{playableCourts.length}</strong> courts in play
+              <strong className="text-foreground">{courtsInUse}</strong> of{' '}
+              <strong className="text-foreground">{playableCourts.length}</strong> courts in use
             </span>
             <span>
-              <strong className="text-foreground">
-                {matches.reduce((total, match) => total + match.match_players.length, 0)}
-              </strong>{' '}
-              players on court
+              <strong className="text-foreground">{playersOnCourt}</strong> players on court
             </span>
             <span>
               <strong className="text-foreground">{waitingCount}</strong> in the queue
@@ -70,7 +75,7 @@ export default async function LivePage() {
         )}
 
         <div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
-          <CourtGrid courts={courts} matches={matches} />
+          <CourtGrid courts={courts} matches={matches} forming={forming} />
           <QueueBoard queue={queue} />
         </div>
       </main>
