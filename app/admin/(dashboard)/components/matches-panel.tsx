@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { endMatch, type ActiveMatch } from '@/services/matches'
 import { ServiceError } from '@/services/http'
-import { MatchCountdown } from '@/app/live/components/match-countdown'
+import { MatchCountdown } from '@/components/site/match-countdown'
 
 export function MatchesPanel({ matches }: { matches: ActiveMatch[] }) {
   const router = useRouter()

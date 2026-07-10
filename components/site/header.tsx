@@ -33,6 +33,12 @@ export function SiteHeader() {
 
         <div className="flex items-center gap-3">
           <Link
+            href="/play"
+            className="hidden font-mono text-xs font-bold uppercase tracking-[0.1em] text-muted-foreground transition-colors hover:text-primary sm:block"
+          >
+            Play
+          </Link>
+          <Link
             href="/live"
             className="hidden items-center gap-2 rounded-full border border-border px-3 py-1.5 font-mono text-xs font-bold uppercase tracking-[0.08em] text-muted-foreground transition-colors hover:border-primary/60 hover:text-primary sm:flex"
           >

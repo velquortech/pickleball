@@ -1,9 +1,9 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
 
-// Optimistic admin gate (S3). This is NOT the auth boundary — every admin API
-// controller re-checks with requireAdmin(). Proxy just keeps the session fresh
-// and redirects obvious non-admins away from /admin pages.
+// Optimistic gates (S3). This is NOT the auth boundary — every admin controller
+// re-checks with requireAdmin() and every player controller with requirePlayer().
+// Proxy just keeps the session fresh and redirects obvious strangers away.
 export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request })
 
@@ -30,8 +30,34 @@ export async function proxy(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser()
 
+  const { pathname } = request.nextUrl
+
+  // Player area: any signed-in account may enter. Strangers are sent to sign in
+  // and bounced back to where they were headed.
+  if (pathname.startsWith('/play')) {
+    if (!user) {
+      const url = request.nextUrl.clone()
+      url.pathname = '/auth/login'
+      url.search = `?next=${encodeURIComponent(pathname + request.nextUrl.search)}`
+      return NextResponse.redirect(url)
+    }
+    return response
+  }
+
+  // Auth pages: a signed-in player has no business on them.
+  if (pathname.startsWith('/auth')) {
+    if (user) {
+      const url = request.nextUrl.clone()
+      url.pathname = '/play'
+      url.search = ''
+      return NextResponse.redirect(url)
+    }
+    return response
+  }
+
+  // Admin area: staff only, by app_metadata role.
   const isAdmin = user?.app_metadata?.role === 'admin'
-  const isLoginPage = request.nextUrl.pathname === '/admin/login'
+  const isLoginPage = pathname === '/admin/login'
 
   if (!isAdmin && !isLoginPage) {
     const url = request.nextUrl.clone()
@@ -51,5 +77,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/admin/:path*', '/admin'],
+  matcher: ['/admin/:path*', '/admin', '/play/:path*', '/play', '/auth/:path*'],
 }

@@ -4,6 +4,9 @@ import { createHmac, timingSafeEqual } from 'node:crypto'
 import { z } from 'zod'
 import { createAdminClient } from '@/config/supabase/admin'
 import { ApiError } from '@/app/api/_lib/http'
+import { getFacilitySettings } from '@/app/api/_lib/settings'
+import { passValidUntil } from '@/app/api/_lib/play-credits'
+import { PASS_REFERENCE_PREFIX } from '@/app/api/sessions/controller'
 
 export const webhookPayloadSchema = z.object({
   referenceCode: z.string().min(1),
@@ -30,7 +33,68 @@ export function verifyWebhookSignature(rawBody: string, signature: string | null
   }
 }
 
+// One webhook endpoint settles both money paths. The reference prefix says
+// which: `OP-` is a prepaid open-play pass, `PB-` is a court booking.
 export async function settlePayment(input: z.infer<typeof webhookPayloadSchema>) {
+  const normalized = input.referenceCode.trim().toUpperCase()
+
+  return normalized.startsWith(`${PASS_REFERENCE_PREFIX}-`)
+    ? settlePlaySessionPayment({ ...input, referenceCode: normalized })
+    : settleBookingPayment({ ...input, referenceCode: normalized })
+}
+
+// Crediting playing time is one atomic DB call (settle_play_session): claim the
+// pass, write the ledger entry, mark the payment paid. A repeated webhook is
+// acknowledged without crediting twice.
+async function settlePlaySessionPayment(input: z.infer<typeof webhookPayloadSchema>) {
+  const admin = createAdminClient()
+
+  const { data: session } = await admin
+    .from('play_sessions')
+    .select('id, status, payments(id, status)')
+    .eq('reference_code', input.referenceCode)
+    .maybeSingle()
+
+  if (!session) throw new ApiError(404, 'Pass not found')
+
+  if (input.status === 'failed') {
+    const payment = session.payments?.[0]
+    if (payment) {
+      const { error } = await admin
+        .from('payments')
+        .update({ status: 'failed', provider_ref: input.providerRef })
+        .eq('id', payment.id)
+        .eq('status', 'pending')
+      if (error) throw new ApiError(500, error.message)
+    }
+    return { referenceCode: input.referenceCode, status: session.status, changed: true }
+  }
+
+  const settings = await getFacilitySettings()
+  const validUntil = passValidUntil(new Date(), {
+    closeHour: settings.close_hour,
+    timezone: settings.timezone,
+  })
+
+  const { data, error } = await admin
+    .rpc('settle_play_session', {
+      p_reference: input.referenceCode,
+      p_provider_ref: input.providerRef,
+      p_valid_until: validUntil,
+    })
+    .single()
+
+  if (error) throw new ApiError(500, error.message)
+
+  return {
+    referenceCode: data.reference_code,
+    status: data.status,
+    minutesCredited: data.minutes_credited,
+    changed: data.changed,
+  }
+}
+
+async function settleBookingPayment(input: z.infer<typeof webhookPayloadSchema>) {
   const admin = createAdminClient()
 
   const { data: booking } = await admin

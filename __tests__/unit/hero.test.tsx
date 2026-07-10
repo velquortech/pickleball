@@ -2,11 +2,12 @@ import { render, screen } from '@testing-library/react'
 import { Hero } from '@/app/components/hero'
 import type { LiveData } from '@/helpers/live-data'
 
-const OFFLINE: LiveData = { courts: [], queue: [], matches: [], online: false }
+const OFFLINE: LiveData = { courts: [], queue: [], matches: [], forming: [], online: false }
 
 function onlineData(): LiveData {
   return {
     online: true,
+    forming: [],
     courts: [
       { id: 'c1', name: 'Court 1', court_type: 'open_play', status: 'open', is_active: true, sort_order: 1, created_at: '', updated_at: '' },
       { id: 'c2', name: 'Court 2', court_type: 'open_play', status: 'open', is_active: true, sort_order: 2, created_at: '', updated_at: '' },

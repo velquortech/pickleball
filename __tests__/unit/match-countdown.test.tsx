@@ -1,5 +1,5 @@
 import { act, render, screen } from '@testing-library/react'
-import { MatchCountdown } from '@/app/live/components/match-countdown'
+import { MatchCountdown } from '@/components/site/match-countdown'
 
 describe('MatchCountdown', () => {
   beforeEach(() => {

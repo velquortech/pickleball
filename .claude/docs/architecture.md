@@ -9,18 +9,23 @@ through `/services`. This is the standard moving forward:
   (zod), Supabase queries, business rules. Route files (`route.ts`) stay thin:
   parse → call controller → `ok()`/`fail()`.
 - **`app/api/_lib/`** — shared API plumbing: `http.ts` (ApiError, ok/fail/parseBody),
-  `auth.ts` (`requireAdmin()` — the hard authorization boundary), plus pure,
-  unit-testable engines (`matchmaking.ts`, `booking-slots.ts`, `reference-code.ts`).
+  `auth.ts` (`requireAdmin()` / `requirePlayer()` — the hard authorization
+  boundaries), server-only helpers (`credits.ts`, `player-state.ts`, `settings.ts`),
+  plus pure, unit-testable engines (`matchmaking.ts`, `booking-slots.ts`,
+  `reference-code.ts`, `play-credits.ts`, `stacking.ts`, `queue-projection.ts`,
+  `invites.ts`).
 - **`services/`** (repo root) — the ONLY way client components call the API, one file
   per API category (`courts.ts`, `queue.ts`, `matches.ts`, `bookings.ts`,
-  `payments.ts`, `settings.ts`) over the shared axios layer in `services/http.ts`:
-  use `api` for public endpoints and `authApi` for staff endpoints. `authApi` is
-  the client-side protection point — it refuses to fire without a Supabase
-  session, attaches `Authorization: Bearer <token>`, and redirects to
-  `/admin/login` on 401. Server-side, `requireAdmin()` accepts the session cookie
-  OR the bearer token. Client components never query Supabase tables directly
-  (exception: read-only Realtime subscriptions on public tables, e.g. the live
-  dashboard refresher).
+  `payments.ts`, `settings.ts`, `players.ts`, `sessions.ts`, `follows.ts`,
+  `invites.ts`) over the shared axios layer in `services/http.ts`: use `api` for
+  public endpoints, `authApi` for staff endpoints, and `playerApi` for registered
+  players. The auth clients are the client-side protection point — they refuse to
+  fire without a Supabase session, attach `Authorization: Bearer <token>`, and
+  redirect to `/admin/login` (staff) or `/auth/login` (players) on 401.
+  Server-side, `requireAdmin()`/`requirePlayer()` accept the session cookie OR the
+  bearer token. Client components never query Supabase tables directly
+  (exception: read-only Realtime subscriptions, e.g. the live dashboard and
+  player-hub refreshers).
 - **Server pages reuse controllers directly** (no HTTP hop): e.g. `/live` and `/book`
   import `listQueue`/`getAvailability` from the controllers.
 
@@ -46,10 +51,14 @@ app/
   live/                   # public realtime dashboard (+ components/, helpers/)
   book/                   # booking flow, URL-param driven (+ components/, helpers/)
   bookings/[reference]/   # booking confirmation / payment page
+  auth/                   # player register/sign-in (split-screen layout.tsx)
+  play/                   # player hub, guarded by proxy.ts + requirePlayer
+    buy/                  #   purchase playing time (?hours= URL state)
+    pass/[reference]/     #   pay for / cancel a pending pass
   admin/                  # staff area, guarded by proxy.ts + requireAdmin
     (dashboard)/          #   sidebar dashboard shell (layout.tsx) + tab panels
     login/                #   split-screen staff sign-in (outside the shell)
-components/site/          # shared chrome (header, footer, court illustration)
+components/site/          # shared chrome (header, footer, pay button, countdown)
 components/ui/            # shadcn components (owned source — extend here)
 config/supabase/          # Supabase clients + types
   client.ts               #   browser client (Client Components only)
@@ -70,6 +79,6 @@ __tests__/
   unit/                   # jsdom tests (components, hooks, utils, pure engines)
   integration/            # node tests against the local Supabase stack
 __mocks__/                # shared Jest mocks
-proxy.ts                  # session refresh + optimistic /admin gate (Next 16 middleware)
+proxy.ts                  # session refresh + optimistic /admin, /play, /auth gates
 .claude/                  # categorized standards (docs/) + planning docs
 ```
