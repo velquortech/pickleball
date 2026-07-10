@@ -268,6 +268,24 @@ Verified end-to-end against a running dev server: paywall → buy → pay → cl
 stack → invite → accept → auto-start with four debits → queue auto-assignment →
 projection onto the soonest-free court → staff cancel with refund.
 
+## Manual QA
+
+`make seed` restores six player accounts (password `Player123!`, all
+`@pickleball.local`), each covering a state worth exercising:
+
+| Account | State | What it exercises |
+|---|---|---|
+| `rico` | 120 min, follows Maya/Dan/Bea | claim a court, invite friends, top up |
+| `maya`, `dan` | 60 min, follow Rico | stack in, accept invites |
+| `bea` | 60 min, follows nobody | invites she cannot send (P11) |
+| `tito` | 0 min | the paywall — every action returns 402 |
+| `lily` | unpaid pass `OP-DEVTAN66` | `/play/pass/[reference]` pay + cancel |
+
+Credits are granted through an **active pass plus a ledger entry**, never a bare
+ledger credit, so `expire_play_credits()` leaves them alone. The seeder is
+idempotent. Two accounts with 60 min are enough to fill a singles court and see
+a match start; four fill a doubles court.
+
 ---
 
 ## 8. Action items

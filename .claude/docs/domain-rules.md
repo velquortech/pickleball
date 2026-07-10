@@ -57,6 +57,10 @@
 
 - Admin role lives in `app_metadata.role` (never `user_metadata`). Local dev admin:
   `admin@pickleball.local` / `Admin123!` (seeded, local only).
+- Local dev players (seeded by `04_dev_players.sql`, password `Player123!`):
+  `rico` (120 min, follows Maya/Dan/Bea), `maya` / `dan` / `bea` (60 min each),
+  `tito` (0 min — paywall checks), `lily` (unpaid pass `OP-DEVTAN66`). All
+  `@pickleball.local`. Restore the state with `make seed`.
 - `requirePlayer()` derives the acting player from the session (cookie or bearer).
   No endpoint ever accepts a client-supplied id for *who is acting*.
 - Facility settings (hours, match duration, booking hold) are edited at
